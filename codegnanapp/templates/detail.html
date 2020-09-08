@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<script src="https://kit.fontawesome.com/1a63e92af6.js" crossorigin="anonymous"></script>
+<div class=" container">
+    <div class="row">
+        <div class="col-md-12"><br>
+            <center><i><b>{{p.title}}</b></i></center><br>
+        </div>
+        <div class="col-md-8">
+            {{p.description}}<br>
+            <img src="{{p.image.url}}" height=" 300" width="300" alt="image">
+        </div>
+        <div class="col-md-4">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{form}}
+                <input class="submit" type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+<span id="like">{{p.likes}}</span>
+<button onclick="onClick()"><i class="fas fa-heart"></i></button>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+    function onClick(){
+        $.ajax({
+            url:"{% url 'codegnanapp:like' %}",
+            data:{'post': {{p.id}}},
+            success:function(data){
+                	document.getElementById('like').innerHTML = data.likes
+
+            }
+        })
+    }
+</script>
+    <div>
+        <h6>Comments: <i class="fas fa-comment-alt"></i></h6>
+        {% for i in comments %}
+        {{forloop.counter}}-{{i.comment}}<br>
+        {% endfor %}
+</div>
+</div>
+{% endblock %}
+

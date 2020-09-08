@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+            {% for i in posts %}
+            <div class = col-6><br>
+                
+                <a href="{% url 'codegnanapp:details' i.id %}">{{i.title}}</a><br>
+                <img src="{{i.image.url}}" alt="" height="300px" width="450px"><br>
+                {{i.timestamp}}<br>
+                {{i.description}}<br>
+                {{i.created_at}} by {{i.user}}<br>
+                updated: {{i.updated_at}}
+            </div>
+            {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
